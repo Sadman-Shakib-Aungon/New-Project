@@ -1,0 +1,54 @@
+{% extends 'gym/base.html' %}
+
+{% block title %}Home - Gym Fitness Tracker{% endblock %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4">Welcome to Gym Fitness Tracker</h1>
+        <p class="lead">Track your workouts, plan your meals, and achieve your fitness goals.</p>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h3 class="card-title">Meal Planning</h3>
+                <p class="card-text">Create custom meal plans to meet your nutritional goals.</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'gym:meal_plan_list' %}" class="btn btn-primary">View Meal Plans</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login to Start</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h3 class="card-title">Workout Tracking</h3>
+                <p class="card-text">Log your workouts and track your progress over time.</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'gym:workout_list' %}" class="btn btn-primary">View Workouts</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login to Start</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h3 class="card-title">Profile Management</h3>
+                <p class="card-text">Update your profile and set your fitness goals.</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'gym:profile' %}" class="btn btn-primary">View Profile</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login to Start</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

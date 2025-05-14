@@ -1,0 +1,81 @@
+{% extends 'gym/base.html' %}
+
+{% block title %}{{ workout.name }} - Gym Fitness Tracker{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'gym:dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'gym:workout_list' %}">Workouts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ workout.name }}</li>
+            </ol>
+        </nav>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>{{ workout.name }}</h2>
+                    <div>
+                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="lead">{{ workout.description }}</p>
+                <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
+                <p><strong>Created:</strong> {{ workout.created_at|date:"F d, Y" }}</p>
+                <p><strong>Last Updated:</strong> {{ workout.updated_at|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>Exercises</h3>
+                    <a href="#" class="btn btn-success btn-sm">Add Exercise</a>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if exercises %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Sets</th>
+                                    <th>Reps</th>
+                                    <th>Weight</th>
+                                    <th>Rest Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exercise in exercises %}
+                                    <tr>
+                                        <td>{{ exercise.name }}</td>
+                                        <td>{{ exercise.sets }}</td>
+                                        <td>{{ exercise.reps }}</td>
+                                        <td>{% if exercise.weight %}{{ exercise.weight }} kg{% else %}N/A{% endif %}</td>
+                                        <td>{{ exercise.rest_time }} sec</td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <p>No exercises added to this workout yet. Add your first exercise to get started!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
